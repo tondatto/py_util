@@ -24,11 +24,13 @@ TODOIST_RECORD_SEP = ',,,,,,,,'
 # iter each file in directory
 for filename in sorted(os.listdir(path_to_csv)):
     
-    # directory to save the project tasks
+    # folder name to save the project tasks
+    # using filename without extension 
+    # and non alphanumeric chars
     d = re.sub(r'\.\w+$', '', filename) 
     d = re.sub(r'\W', '', d)
 
-    # create directory if not exists
+    # create output path if not exists
     dir_name = path_to_txt + d
     
     if not os.path.exists(dir_name):
@@ -38,6 +40,7 @@ for filename in sorted(os.listdir(path_to_csv)):
             if exc.errno != errno.EEXIST:
                 raise
     
+    # open todoist template project csv
     with open(path_to_csv + filename, 'r') as f:
 
         # get the tasks records
